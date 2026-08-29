@@ -33,3 +33,36 @@ variable "vm_db_yandex_compute_instance_platform_id" {
   type    = string
   default = "standard-v3"
 }
+
+#resources:
+variable "vms_resources" {
+  type = map(object({
+    cores         = number
+    memory        = number
+    core_fraction = number
+    disc_size     = number
+    disc_type     = string
+  }))
+  description = "Параметры ресурсов ВМ (cores/memory/core_fraction/disc) по ключу web/db"
+  default = {
+    web = {
+      cores         = 2
+      memory        = 1
+      core_fraction = 5
+      disc_size     = 10
+      disc_type     = "network-hdd"
+    }
+    db = {
+      cores         = 2
+      memory        = 2
+      core_fraction = 20
+      disc_size     = 10
+      disc_type     = "network-ssd"
+    }
+  }
+}
+
+variable vms_metadata {
+  type = map(string)
+  description = "Метадата для ВМ"
+}

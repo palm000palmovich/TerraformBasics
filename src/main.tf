@@ -47,15 +47,15 @@ resource "yandex_compute_instance" "platform_web" {
   name        = local.vm_names.web
   platform_id = var.vm_web_yandex_compute_instance_platform_id
   resources {
-    cores         = local.vms_resources.web.cores
-    memory        = local.vms_resources.web.memory
-    core_fraction = local.vms_resources.web.core_fraction
+    cores         = var.vms_resources.web.cores
+    memory        = var.vms_resources.web.memory
+    core_fraction = var.vms_resources.web.core_fraction
   }
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu.image_id
-      size     = local.vms_resources.web.disc_size
-      type     = local.vms_resources.web.disc_type
+      size     = var.vms_resources.web.disc_size
+      type     = var.vms_resources.web.disc_type
     }
   }
   scheduling_policy {
@@ -66,7 +66,7 @@ resource "yandex_compute_instance" "platform_web" {
     nat       = false
   }
 
-  metadata = local.vms_metadata
+  metadata = var.vms_metadata
 }
 
 #2nd VM
@@ -75,15 +75,15 @@ resource "yandex_compute_instance" "platform_db" {
   platform_id = var.vm_db_yandex_compute_instance_platform_id
   zone        = var.vm_db_default_zone
   resources {
-    cores         = local.vms_resources.db.cores
-    memory        = local.vms_resources.db.memory
-    core_fraction = local.vms_resources.db.core_fraction
+    cores         = var.vms_resources.db.cores
+    memory        = var.vms_resources.db.memory
+    core_fraction = var.vms_resources.db.core_fraction
   }
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu.image_id
-      size     = local.vms_resources.db.disc_size
-      type     = local.vms_resources.db.disc_type
+      size     = var.vms_resources.db.disc_size
+      type     = var.vms_resources.db.disc_type
     }
   }
   scheduling_policy {
@@ -94,5 +94,5 @@ resource "yandex_compute_instance" "platform_db" {
     nat       = false
   }
 
-  metadata = local.vms_metadata
+  metadata = var.vms_metadata
 }
